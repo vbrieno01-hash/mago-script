@@ -60,9 +60,9 @@ goto MENU
 :: ==========================================
 :LIMPEZA
 cls
-PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════════════════════════' -ForegroundColor Cyan"
+PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ══════════════════════════════════════════════════════════' -ForegroundColor Cyan"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '   MODO: LIMPEZA COMPLETA DO SISTEMA' -ForegroundColor Cyan"
-PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════════════════════════' -ForegroundColor Cyan"
+PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ══════════════════════════════════════════════════════════' -ForegroundColor Cyan"
 
 :: 1. Limpeza de Temporários do Usuário[cite: 1]
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  [>>] Limpando arquivos temporarios do usuario...' -ForegroundColor Yellow"
@@ -115,9 +115,9 @@ goto FIM
 :: ==========================================
 :DRIVERS
 cls
-PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════════════════════════' -ForegroundColor Magenta"
+PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════' -ForegroundColor Magenta"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '   MODO: ATUALIZACAO DE PROGRAMAS (WINGET)' -ForegroundColor Magenta"
-PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════════════════════════' -ForegroundColor Magenta"
+PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════' -ForegroundColor Magenta"
 
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  [>>] Atualizando aplicações via Winget...' -ForegroundColor Yellow"
 winget upgrade --all --accept-source-agreements --accept-package-agreements
@@ -127,9 +127,9 @@ goto FIM
 
 :FIM
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host ''"
-PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════════════════════════' -ForegroundColor Green"
+PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════════' -ForegroundColor Green"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '   TUDO PRONTO, MAGO!' -ForegroundColor Green"
-PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════════════════════════' -ForegroundColor Green"
+PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ════════════════════════════════════════════' -ForegroundColor Green"
 echo ""
 pause
 goto MENU
