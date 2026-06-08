@@ -38,7 +38,7 @@ PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; W
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ██║╚██╔╝██║██╔══██║██║   ██║██║   ██║' -ForegroundColor Cyan"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ██║ ╚═╝ ██║██║  ██║╚██████╔╝╚██████╔╝' -ForegroundColor Cyan"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ' -ForegroundColor Cyan"
-PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  S C R I P T S 1.3.2' -ForegroundColor DarkCyan"
+PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  S C R I P T S 1.4.0' -ForegroundColor DarkCyan"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host ''"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '  ══════════════════════════════════════════════════════════════════════════════════════' -ForegroundColor DarkGray"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '   SISTEMA DE MANUTENCAO PRIVADO | STATUS: PRONTO PARA EVOLUCAO' -ForegroundColor Green"
@@ -1245,77 +1245,32 @@ PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; W
 echo.
 
 :: Reverter Indexacao
-sc query WSearch | find "RUNNING" >nul
-if %errorLevel% equ 0 (
-    echo    [AVISO] Indexacao ja estava ativa.
-) else (
-    sc config WSearch start= auto >nul 2>&1
-    net start WSearch >nul 2>&1
-    if %errorLevel% equ 0 (
-        echo    [OK] Indexacao reativada.
-    ) else (
-        echo    [ERRO] Falha ao reativar Indexacao.
-    )
-)
+sc config WSearch start= auto >nul 2>&1
+net start WSearch >nul 2>&1
+echo    [OK] Indexacao reativada.
 
 :: Reverter Atualizacoes
-sc query wuauserv | find "RUNNING" >nul
-if %errorLevel% equ 0 (
-    echo    [AVISO] Atualizacoes ja estavam ativas.
-) else (
-    sc config wuauserv start= auto >nul 2>&1
-    net start wuauserv >nul 2>&1
-    sc config bits start= auto >nul 2>&1
-    net start bits >nul 2>&1
-    sc config dosvc start= auto >nul 2>&1
-    net start dosvc >nul 2>&1
-    reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 0 /f >nul 2>&1
-    if %errorLevel% equ 0 (
-        echo    [OK] Atualizacoes reativadas.
-    ) else (
-        echo    [ERRO] Falha ao reativar Atualizacoes.
-    )
-)
+sc config wuauserv start= auto >nul 2>&1
+net start wuauserv >nul 2>&1
+sc config bits start= auto >nul 2>&1
+net start bits >nul 2>&1
+sc config dosvc start= auto >nul 2>&1
+net start dosvc >nul 2>&1
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 0 /f >nul 2>&1
+echo    [OK] Atualizacoes reativadas.
 
 :: Reverter Telemetria
-reg query "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v AllowTelemetry | find "0x1" >nul
-if %errorLevel% equ 0 (
-    echo    [AVISO] Telemetria ja estava em nivel basico.
-) else (
-    reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 1 /f >nul 2>&1
-    if %errorLevel% equ 0 (
-        echo    [OK] Telemetria reativada (nivel basico).
-    ) else (
-        echo    [ERRO] Falha ao reativar Telemetria.
-    )
-)
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 1 /f >nul 2>&1
+echo    [OK] Telemetria reativada.
 
 :: Reverter Servico de Relogio
-sc query W32Time | find "RUNNING" >nul
-if %errorLevel% equ 0 (
-    echo    [AVISO] Servico de relogio ja estava ativo.
-) else (
-    sc config W32Time start= auto >nul 2>&1
-    net start W32Time >nul 2>&1
-    if %errorLevel% equ 0 (
-        echo    [OK] Servico de relogio reativado.
-    ) else (
-        echo    [ERRO] Falha ao reativar servico de relogio.
-    )
-)
+sc config W32Time start= auto >nul 2>&1
+net start W32Time >nul 2>&1
+echo    [OK] Servico de relogio reativado.
 
 :: Reverter Hibernacao
-powercfg /a | find "Hibernação" | find "Disponível" >nul
-if %errorLevel% equ 0 (
-    echo    [AVISO] Hibernacao ja estava ativa.
-) else (
-    powercfg -h on >nul 2>&1
-    if %errorLevel% equ 0 (
-        echo    [OK] Hibernacao reativada.
-    ) else (
-        echo    [ERRO] Falha ao reativar hibernacao.
-    )
-)
+powercfg -h on >nul 2>&1
+echo    [OK] Hibernacao reativada.
 
 echo.
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '   [OK] Principais configuracoes revertidas!' -ForegroundColor Green"
@@ -1323,7 +1278,8 @@ echo.
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '   OBS: Para reverter todas as opcoes individualmente,' -ForegroundColor Yellow"
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Write-Host '        utilize as opcoes especificas no menu principal.' -ForegroundColor Yellow"
 echo.
-timeout /t 5 >nul
+echo    Pressione qualquer tecla para voltar ao menu...
+pause >nul
 goto SUBMENU_WINDOWS
 
 :: ==========================================
